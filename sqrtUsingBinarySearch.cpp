@@ -38,7 +38,7 @@ double morePrecision(int n, int precision, int temp){
 }
 int main(){
     int n;
-    cout << "Enter the value of n";
+    cout << "Enter the value of n: ";
     cin >> n;
     int temp = binarySearch(n);
 
