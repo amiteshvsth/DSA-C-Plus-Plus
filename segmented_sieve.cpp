@@ -5,7 +5,6 @@ using namespace std;
 vector<int> primes;
 
 // get all primes <=x where x=sqrt(n)
-
 void simpleSieve(int x){
     vector<bool> prime(x+1,true);
     //as 0 and 1 are not primes
@@ -28,18 +27,20 @@ void simpleSieve(int x){
 }
 
 void segmentedSieve(int l, int r, vector<int> &ans){
+    //creating a dummy vector of size r-l+1 so that we do not need to create a vector of larger size
     vector<int> isPrime(r-l+1, true);
     //looping over the primes
-    for(int a: primes){
-        //Choosing the first multiple of a>=l
+    for(int p: primes){
+        //Choosing the first multiple of p>=l
 
         //for even case
-        int s=l/a*a;
+        int s=l/p*p;
+
         //for odd case
-        if(s<l) s+=a;
+        if(s<l) s+=p;
 
         //cancelling out the factors of a
-        for (int i = s; i <=r; i+=a){
+        for (int i = s; i <=r; i+=p){
            isPrime[i-l]=false;
         } 
     }
@@ -60,15 +61,13 @@ int main(){
     vector<int> ans;
 
     int updateVal=floor(sqrt(n));
-    for (int l = 2; l < n; l+=updateVal)
-    {
+    for (int l = 2; l < n; l+=updateVal){
         int r= min(l+updateVal-1, n-1);
         segmentedSieve(l,r,ans);
     }
     //printing all the primes < n
     for(int p:ans){
         cout << p << " ";
-        cout << endl;
     }
-    
+    cout << endl;    
 }
